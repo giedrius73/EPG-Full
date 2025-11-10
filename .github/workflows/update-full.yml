@@ -1,0 +1,23 @@
+name: Update epg.xml.gz
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"   # kas 6 valandas
+  workflow_dispatch:        # leidžia paleisti rankiniu būdu
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Download epg.xml.gz
+        run: curl -o epg.xml.gz https://iptvx.one/EPG
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "Automatinis epg.xml.gz atnaujinimas"
