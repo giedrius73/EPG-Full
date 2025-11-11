@@ -1,0 +1,23 @@
+name: Update EPG
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+jobs:
+  update-epg:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          lfs: false
+      - name: Download EPG
+        run: |
+          curl -L -o epg.xml.gz "https://tavo-tiekejo-nuoroda/epg.xml.gz"
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add epg.xml.gz
+          git commit -m "Update EPG file"
+          git push
