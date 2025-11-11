@@ -13,7 +13,7 @@ jobs:
           lfs: false
       - name: Download EPG
         run: |
-          curl -L -o epg.xml.gz "https://tavo-tiekejo-nuoroda/epg.xml.gz"
+          curl -L -o epg.xml.gz "https://raw.githubusercontent.com/giedrius73/EPG-Full/main/epg.xml.gz"
       - name: Commit and push
         run: |
           git config user.name "github-actions"
